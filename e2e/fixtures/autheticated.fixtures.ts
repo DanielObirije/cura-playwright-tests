@@ -17,7 +17,7 @@ export const test = base.extend<Fixtures>({
     await page.locator("#txt-password").fill("ThisIsNotAPassword");
     await page.locator("#btn-login").click();
     await expect(page).toHaveURL("#appointment");
-    await page.getByLabel("combo_facility").waitFor({ state: "visible" });
+    await page.locator("#combo_facility").waitFor({ state: "visible" });
 
     await use(page);
   },

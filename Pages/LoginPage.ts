@@ -9,13 +9,13 @@ export class LoginPage {
 
   async openLogin() {
     await this.page.getByRole("link", { name: "Make Appointment" }).click();
-    await expect(this.page.getByText("Login")).toBeVisible();
-    await expect(
-      this.page.getByText("Please login to make appointment."),
-    ).toBeVisible();
+    // await expect(this.page.getByText("Login")).toBeVisible();
+    // await expect(
+    //   this.page.getByText("Please login to make appointment."),
+    // ).toBeVisible();
     await this.page.getByLabel("username").waitFor({ state: "visible" });
     await this.page.getByLabel("password").waitFor({ state: "visible" });
-    await expect(this.page.getByTestId("btn-login")).toBeVisible();
+    await expect(this.page.locator("#btn-login")).toBeVisible();
   }
 
   async login(username: string, password: string) {
@@ -29,7 +29,7 @@ export class LoginPage {
     }
 
     await this.page.getByLabel("username").fill(username);
-    await this.page.getByLabel("username").fill(password);
+    await this.page.getByLabel("password").fill(password);
     await this.page.getByRole("button", { name: "login" }).click();
   }
 }

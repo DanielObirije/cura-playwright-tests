@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 
-type AppointmentData = {
+export type AppointmentData = {
   facility: string;
   readmission: boolean;
   program: "Medicare" | "Medicaid" | "None";
