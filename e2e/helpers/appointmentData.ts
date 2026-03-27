@@ -1,4 +1,10 @@
-import { AppointmentData } from "../../Pages/AppointmentPage";
+export type AppointmentData = {
+  facility: string;
+  readmission: boolean;
+  program: "Medicare" | "Medicaid" | "None";
+  VisitDate: string;
+  comment?: string;
+};
 
 export const appointmentData = {
   void(): AppointmentData {
@@ -6,6 +12,7 @@ export const appointmentData = {
       facility: "Hongkong CURA Healthcare Center",
       readmission: true,
       program: "Medicaid",
+      VisitDate: "26/04/2026",
       comment: `Test e2e ${Date.now()}`,
     };
   },
@@ -21,3 +28,10 @@ export function curaDatePlus(days: number): string {
 
   return `${dd}/${mm}/${yyyy}`;
 }
+
+export const dateCases = [
+  { name: "yesterday", offset: -1 },
+  { name: "today", offset: 0 },
+  { name: "tomorrow", offset: 1 },
+  { name: "next year", offset: 365 },
+];

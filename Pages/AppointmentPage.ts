@@ -1,11 +1,5 @@
-import { Page } from "@playwright/test";
-
-export type AppointmentData = {
-  facility: string;
-  readmission: boolean;
-  program: "Medicare" | "Medicaid" | "None";
-  comment?: string;
-};
+import { Page, expect } from "@playwright/test";
+import { AppointmentData } from "../e2e/helpers/appointmentData";
 
 export class AppointmentPage {
   constructor(private readonly page: Page) {}
@@ -54,5 +48,23 @@ export class AppointmentPage {
       this.page.waitForURL(/#summary/),
       this.page.locator("#btn-book-appointment").click(),
     ]);
+  }
+
+  async confirmdata(data: AppointmentData) {
+    await expect(this.page).toHaveURL("appointment.php#summary");
+    await expect(this.page.locator("h2")).toHaveText(
+      "Appointment Confirmation",
+    );
+    await expect(this.page.locator(".lead")).toHaveText(
+      "Please be informed that your appointment has been booked as following:",
+    );
+    await expect(this.page.locator("#facility")).toHaveText(data.facility);
+    await expect(this.page.locator("#program")).toHaveText(data.program);
+    await expect(this.page.locator("#hospital_readmission")).toHaveText(
+      data.readmission ? "Yes" : "No",
+    );
+    if (data.comment) {
+      await expect(this.page.locator("#comment")).toHaveText(data.comment);
+    }
   }
 }
